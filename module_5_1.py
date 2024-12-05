@@ -3,6 +3,13 @@ class House:
         self.name = name
         self.number_of_floors = number_of_floors
 
+    def test_int(self, value):
+        if isinstance(value, int) == False:
+            print (f'Действие не выполнено, количество этажей осталось прежним: {self.number_of_floors}')
+            return False
+        else:
+            return True
+
     def __len__(self):
         return self.number_of_floors
 
@@ -10,25 +17,44 @@ class House:
         return f'Название: {self.name}, кол-во этажей: {self.number_of_floors}'
 
     def __eq__(self, other):
-        return len(self) == len(other)
+        if isinstance(other, House):
+            return len(self) == len(other)
+        else:
+            return (f'Действие не выполнено, объект "{other}" не относится к классу "House".')
 
     def __lt__(self, other):
-        return len(self) < len(other)
+        if isinstance(other, House):
+            return len(self) < len(other)
+        else:
+            return (f'Действие не выполнено, объект "{other}" не относится к классу "House".')
 
     def __le__(self, other):
-        return len(self) == len(other) or len(self) < len(other)
+        if isinstance(other, House):
+            return len(self) == len(other) or len(self) < len(other)
+        else:
+            return (f'Действие не выполнено, объект "{other}" не относится к классу "House".')
 
     def __gt__(self, other):
-        return len(self) > len(other)
+        if isinstance(other, House):
+            return len(self) > len(other)
+        else:
+            return (f'Действие не выполнено, объект "{other}" не относится к классу "House".')
 
     def __ge__(self, other):
-        return len(self) == len(other) or len(self) > len(other)
+        if isinstance(other, House):
+            return len(self) == len(other) or len(self) > len(other)
+        else:
+            return (f'Действие не выполнено, объект "{other}" не относится к классу "House".')
 
     def __ne__(self, other):
-        return len(self) != len(other)
+        if isinstance(other, House):
+            return len(self) != len(other)
+        else:
+            return (f'Действие не выполнено, объект "{other}" не относится к классу "House".')
 
     def __add__(self, value):
-        self.number_of_floors = self.number_of_floors + value
+        if self.test_int(value):
+            self.number_of_floors = self.number_of_floors + value
         return self
 
     def __radd__(self, value):
@@ -38,23 +64,28 @@ class House:
         return self.__add__(value)
 
     def __sub__(self, value):
-        self.number_of_floors = self.number_of_floors - value
+        if self.test_int(value):
+            self.number_of_floors = self.number_of_floors - value
         return self
 
     def __mul__(self, value):
-        self.number_of_floors = self.number_of_floors * value
+        if self.test_int(value):
+            self.number_of_floors = self.number_of_floors * value
         return self
 
     def __truediv__(self, value):
-        self.number_of_floors = self.number_of_floors / value
+        if self.test_int(value):
+            self.number_of_floors = self.number_of_floors / value
         return self
 
     def __divmod__(self, value):
-        self.number_of_floors = self.number_of_floors //value
+        if self.test_int(value):
+            self.number_of_floors = self.number_of_floors //value
         return self
 
     def __pow__(self, power, modulo=None):
-        self.number_of_floors = self.number_of_floors ** power
+        if self.test_int(power):
+            self.number_of_floors = self.number_of_floors ** power
         return self
 
 
@@ -88,10 +119,10 @@ print(h1)
 
 print(h1 == h2)
 
-h1 += 10 # __iadd__
-print(h1)
+# h1 += 10 # __iadd__
+# print(h1)
 
-h2 = 10 + h2 # __radd__
+h1 = 10 + h1 # __radd__
 print(h2)
 
 print(h1 > h2) # __gt__
